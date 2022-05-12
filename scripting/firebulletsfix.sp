@@ -49,7 +49,7 @@ public void OnClientPutInServer(int client)
 {
 	if (IsClientConnected(client) && IsClientInGame(client) && !IsFakeClient(client))
 	{
-		DHookEntity(g_hWeapon_ShootPosition, true, client, _, Weapon_ShootPosition_Post);
+		g_hWeapon_ShootPosition.HookEntity(Hook_Post, client, Weapon_ShootPosition_Post);
 	}
 }
 
@@ -61,8 +61,8 @@ public void OnPlayerRunCmdPre(int client)
 	}
 }
 
-public MRESReturn Weapon_ShootPosition_Post(int client, Handle hReturn)
+public MRESReturn Weapon_ShootPosition_Post(int client, DHookReturn hReturn)
 {
-	DHookSetReturnVector(hReturn, g_vecOldWeaponShootPos[client]);
+	hReturn.SetVector(g_vecOldWeaponShootPos[client]);
 	return MRES_Supercede;
 }
