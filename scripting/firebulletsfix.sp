@@ -39,7 +39,7 @@ public void OnPluginStart()
 		SetFailState("[FireBullets Fix] couldn't hook Weapon_ShootPosition");
 	}
 	
-	for (int client = 1; client <= MaxClients; client++)
+	for (int client = 1; client <= MaxClients + 1; client++)
 	{
 		OnClientPutInServer(client);
 	}
@@ -47,7 +47,7 @@ public void OnPluginStart()
 
 public void OnClientPutInServer(int client)
 {
-	if (IsClientConnected(client) && IsClientInGame(client) && !IsFakeClient(client))
+	if (IsClientConnected(client) && IsClientInGame(client) && !IsFakeClient(client) && !IsClientSourceTV(client))
 	{
 		g_hWeapon_ShootPosition.HookEntity(Hook_Post, client, Weapon_ShootPosition_Post);
 	}
